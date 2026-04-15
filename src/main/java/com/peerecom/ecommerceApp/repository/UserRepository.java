@@ -1,5 +1,6 @@
-package com.peerecom.ecommerceApp;
+package com.peerecom.ecommerceApp.repository;
 
+import com.peerecom.ecommerceApp.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
