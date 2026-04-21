@@ -7,14 +7,17 @@ import com.peerecom.ecommerceApp.model.User;
 import com.peerecom.ecommerceApp.repository.CartitemRepository;
 import com.peerecom.ecommerceApp.repository.ProductRepository;
 import com.peerecom.ecommerceApp.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CartService {
 
     private final ProductRepository productRepository;
@@ -48,8 +51,8 @@ public class CartService {
         Cartitem existingCartItem = cartitemRepository.findByUserAndProduct(user,product);
 
         if (existingCartItem != null){
-            // u perform he update the quantity bcx product already exists in cart
-                                         // item already present          items requested by user
+            // u perform the update the quantity bcx product already exists in cart
+                                         // item already present     +     items requested by user
             existingCartItem.setQuantity(existingCartItem.getQuantity() + request.getQuantity());
             existingCartItem.setPrice(product.getPrice().multiply(BigDecimal.valueOf(existingCartItem.getQuantity())));
             cartitemRepository.save(existingCartItem);
@@ -67,4 +70,30 @@ public class CartService {
         }
         return true;
     }
+
+    // so to delete an item from the cart pass the product id which is added to the cart and by which user it is added also pass that user id
+    public boolean deleteItemFromCart(String userId, Long productId) {
+
+        // validation for product
+        Optional<Product> productOpt = productRepository.findById(productId);
+        // validation for user
+        Optional<User> userOpt = userRepository.findById(Long.valueOf(userId));
+
+        if (productOpt.isPresent() && userOpt.isPresent()){
+            cartitemRepository.deleteByUserAndProduct(userOpt.get(),productOpt.get());
+            return true;
+        }
+
+        return false;
+    }
+
+
+    public List<Cartitem> getCart(String userId) {
+        // check for the user
+        return userRepository.findById(Long.valueOf(userId))
+        .map(cartitemRepository::findByUser) // if user exists return it
+                .orElseGet(List::of); // or if not exists return empty list
+    }
+
+
 }
