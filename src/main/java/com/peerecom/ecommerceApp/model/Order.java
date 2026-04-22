@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity(name = "orders")
 @Data
 @NoArgsConstructor
 public class Order {
@@ -32,7 +32,7 @@ public class Order {
     // also order will have the list of items that were ordered
 
     // one order can have multiple order items
-    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<OrderItem> items = new ArrayList<>();
 
     private LocalDateTime createdAt;
