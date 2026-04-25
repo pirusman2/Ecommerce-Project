@@ -96,4 +96,10 @@ public class CartService {
     }
 
 
+    // this will remove all the cart items for a particular user
+    public void clearCart(String userId) {
+        // first we will check the given user in user repository
+        userRepository.findById(Long.valueOf(userId)).ifPresent(cartitemRepository::deleteByUser);
+
+    }
 }

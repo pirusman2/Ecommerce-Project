@@ -1,14 +1,18 @@
 package com.peerecom.ecommerceApp.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
 
 @Entity
 @NoArgsConstructor
 @Data
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class OrderItem {
 
     @Id

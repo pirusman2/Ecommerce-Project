@@ -16,7 +16,7 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
+     private Long id;
     // one user can have multiple orders created   many is representing the orders
     // why many for order come first in ManyToOne bcx we are in order class
     @ManyToOne

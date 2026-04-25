@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 @Repository
 public interface CartitemRepository extends JpaRepository<Cartitem,Long> {
@@ -16,4 +17,6 @@ public interface CartitemRepository extends JpaRepository<Cartitem,Long> {
     void deleteByUserAndProduct(User user, Product product);
 
     List<Cartitem> findByUser(User user);
+
+    void deleteByUser(User user);
 }
