@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Data
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class OrderItem {
 
     @Id

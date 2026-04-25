@@ -63,7 +63,7 @@ public class OrderService {
         // now save the order in order repository
         Order savedOrder = orderRepository.save(order);
 
-        // clear the cart
+        // clear the cart after adding the order as all cart items will be shifted to order
         cartService.clearCart(userId);
 
         return Optional.of(mapToOrderResponse(savedOrder));
